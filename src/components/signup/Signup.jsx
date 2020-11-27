@@ -1,7 +1,7 @@
 import React, {useState} from "react"
 import "./Signup.scss"
 import Button from "../html/button/primary"
-import {Link} from "react-router-dom"
+import {Link, useHistory} from "react-router-dom"
 import Invisibility from "../html/SVG/Invisibility";
 import Visibility from "../html/SVG/Visibility";
 import axios from '../../api/server'
@@ -18,6 +18,7 @@ const initialUser = {
 const Signup = (props) => {
 
     const [user, setUser] = useState(initialUser)
+    const history = useHistory();
 
     //Show password or not
     const [passwordVisible, setPasswordVisible] = useState(false);
@@ -33,7 +34,7 @@ const Signup = (props) => {
             const res = await axios.post('/auth/signup', user)
             if (res.status === 200) {
                 setUser(initialUser)
-                window.location.href = "/";
+                history.push('/')
             }
         } catch
             (e) {

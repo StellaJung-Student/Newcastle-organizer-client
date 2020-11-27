@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 export default axios.create({
-    baseURL: 'http://localhost:8080/api',
+    baseURL: 'https://fast-island-78566.herokuapp.com/api',
     timeout: 100000,
     withCredentials: true,
     headers: {
