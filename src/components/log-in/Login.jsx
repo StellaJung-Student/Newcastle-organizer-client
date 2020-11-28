@@ -21,7 +21,6 @@ const LogIn = () => {
 
     const [user, setUser] = useState(initialUser)
 
-
     //Show password or not
     const [passwordVisible, setPasswordVisible] = useState(false);
 
@@ -41,11 +40,11 @@ const LogIn = () => {
         try {
             const res = await axios.post('/auth/login', user)
             if (res.status === 200) {
-
-                localStorage.setItem('userInfo', res.data.user)
-                localStorage.setItem('isAuthenticated', 'true')
-                localStorage.setItem('accessToken', res.data.accessToken)
-
+                if(res.data.user && res.data.accessToken){
+                    localStorage.setItem('userInfo', res.data.user)
+                    localStorage.setItem('isAuthenticated', 'true')
+                    localStorage.setItem('accessToken', res.data.accessToken)
+                }
                 history.push("/boards");
             }
         } catch

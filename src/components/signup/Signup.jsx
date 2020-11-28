@@ -15,7 +15,7 @@ const initialUser = {
     country: ''
 }
 
-const Signup = (props) => {
+const Signup = () => {
 
     const [user, setUser] = useState(initialUser)
     const history = useHistory();
@@ -32,7 +32,7 @@ const Signup = (props) => {
         e.preventDefault();
         try {
             const res = await axios.post('/auth/signup', user)
-            if (res.status === 200) {
+            if (res.status === 201) {
                 setUser(initialUser)
                 history.push('/')
             }
