@@ -1,8 +1,7 @@
-import React, {useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import Menu from "../../../../html/SVG/Menu";
 import "./TitleList.scss";
-import {connect} from 'react-redux';
-import {deleteProjectList, editProjectList} from "../../../../../actions";
+import PropTypes from 'prop-types';
 
 const TitleList = ({
                        list,
@@ -11,6 +10,20 @@ const TitleList = ({
                    }) => {
     const [isEdit, setIsEdit] = useState(false)
     const [isMenuOpen, setIsMenuOpen] = useState(false)
+
+    const menuListRef = useRef(null);
+
+    useEffect(() => {
+        const onBodyClick = (event) => {
+            if (menuListRef.current && menuListRef.current.contains(event.target)) {
+                return;
+            }
+
+            setIsMenuOpen(false);
+        };
+        document.body.addEventListener("click", onBodyClick)
+    }, [])
+
     const editTitleWithEnterPressed = (e) => {
         if (e.key === "Enter") {
             list.title = e.target.value.replace(/[\r\n\v]+/g, "");
@@ -40,7 +53,7 @@ const TitleList = ({
         </textarea>
                 </div>
                 <div className="title__list__menu__wrapper">
-                    <div className="title__list__menu" onClick={() => {
+                    <div ref={menuListRef} className="title__list__menu" onClick={() => {
                         setIsMenuOpen(prevState => !prevState)
                     }}>
                         <Menu/>
@@ -59,16 +72,10 @@ const TitleList = ({
     );
 }
 
-
-const mapDispatchToProps = (dispatch) => {
-    return {
-        editProjectList: (list) => {
-            dispatch(editProjectList(list))
-        },
-        deleteProjectList: (id) => {
-            dispatch(deleteProjectList(id))
-        }
-    }
+TitleList.propTypes = {
+    list: PropTypes.object,
+    editProjectList: PropTypes.func,
+    deleteProjectList: PropTypes.func
 }
 
-export default connect(null, mapDispatchToProps)(TitleList);
+export default TitleList;

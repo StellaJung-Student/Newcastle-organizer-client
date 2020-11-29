@@ -7,11 +7,30 @@ import TaskAdder from "./Subcomponents/task-adder/TaskAdder";
 import Task from "./Subcomponents/task/Task";
 import TitleList from "./Subcomponents/title-list/TitleList";
 import {connect} from 'react-redux'
-import {createNewTask, createProjectList, deleteTask, fetchProjectLists, moveTask} from "../../../actions";
+import {
+  createNewTask,
+  createProjectList,
+  deleteProjectList,
+  deleteTask,
+  editProjectList,
+  fetchProjectLists,
+  moveTask
+} from "../../../actions";
+import * as PropTypes from "prop-types";
 
-const BoardList = ({projectLists, fetchProjectListsProps, createProjectList, createNewTaskProps, moveTaskProps, deleteTaskProps}) => {
+const BoardList = ({
+                     projectLists,
+                     fetchProjectListsProps,
+                     createProjectList,
+                     createNewTaskProps,
+                     moveTaskProps,
+                     deleteTaskProps,
+                     editProjectList,
+                     deleteProjectList
+                   }) => {
 
   const [isTaskPopupOpen, setIsTaskPopupOpen] = useState(false)
+  const [projectListIndex, setProjectListIndex] = useState(-1);
 
   const listIndexNumber = useRef();
   const taskIndexNumber = useRef();
@@ -48,34 +67,18 @@ const BoardList = ({projectLists, fetchProjectListsProps, createProjectList, cre
   };
 
 
-  const handleTaskCreation = (listIndex) => {
-    let newTask = {
-      // It needs to be an string in order to be accepted by react-beautiful-dnd as a draggable
-      title: "New Task",
-      attachments: [],
-      comments: [],
-      deadlineDate: new Date(2020, 11, 28),
-      labels: ["Discovery"],
-      members: ["Jhon"]
-    };
+  const handleTaskCreation = (listIndex, newTask) => {
     createNewTaskProps(projectLists[listIndex].id, newTask)
   };
 
-
+  // eslint-disable-next-line no-unused-vars
   const handleTaskClick = (task, listIndex, taskIndex) => {
     toggleTaskPopup()
     //createNewTaskProps(projectLists[listIndex].id, task)
-
   };
 
 
-  const handleListCreation = () => {
-    let newList = {
-      // It needs to be an string in order to be accepted by react-beautiful-dnd as a draggable
-      title: "New List",
-      titleEditable: false,
-      tasks: [],
-    };
+  const handleListCreation = (newList) => {
     createProjectList(newList);
   };
 
@@ -118,7 +121,9 @@ const BoardList = ({projectLists, fetchProjectListsProps, createProjectList, cre
               <ul className="board__list" key={list.id.toString()}>
                 <li className="board__list__item">
                   <TitleList
+                      editProjectList={(list) => editProjectList(list)}
                       list={list}
+                      deleteProjectList={(id) => deleteProjectList(id)}
                   />
                 </li>
                 <Droppable droppableId={list.id.toString()}>
@@ -160,7 +165,11 @@ const BoardList = ({projectLists, fetchProjectListsProps, createProjectList, cre
                 </Droppable>
                 <li className="board__list__item">
                   <TaskAdder
-                      toggleTaskPopup={() => handleTaskCreation(listIndex)}
+                      toggleTaskPopup={() => {
+                        toggleTaskPopup()
+                        setProjectListIndex(listIndex)
+                      }
+                      }
                   />
                 </li>
               </ul>
@@ -169,10 +178,13 @@ const BoardList = ({projectLists, fetchProjectListsProps, createProjectList, cre
         <FloatingTaskMenu
             isTaskPopupOpen={isTaskPopupOpen}
             toggleTaskPopup={toggleTaskPopup}
+            handleTaskCreation={handleTaskCreation}
+            projectListIndex={projectListIndex}
             handleTaskTitleChange={(e) => handleTaskTitleChange(e)}
             handleTaskDescriptionChange={(e) => handleTaskDescriptionChange(e)}
+            //currentTask={currentTask}
         />
-        <ListAdder handleListCreation={() => handleListCreation()}/>
+        <ListAdder handleListCreation={(newList) => handleListCreation(newList)}/>
       </div>
   );
 };
@@ -188,8 +200,25 @@ const mapDispatchToProps = (dispatch) => {
     createProjectList: (newProjectList) => dispatch(createProjectList(newProjectList)),
     createNewTaskProps: (projectListId, newTask) => dispatch(createNewTask(projectListId, newTask)),
     deleteTaskProps: (projectListId, taskId) => dispatch(deleteTask(projectListId, taskId)),
-    moveTaskProps: (task, newProjectList, listsObjects) => dispatch(moveTask(task, newProjectList, listsObjects))
+    moveTaskProps: (task, newProjectList, listsObjects) => dispatch(moveTask(task, newProjectList, listsObjects)),
+    editProjectList: (list) => {
+      dispatch(editProjectList(list))
+    },
+    deleteProjectList: (id) => {
+      dispatch(deleteProjectList(id))
+    }
   }
 }
+
+BoardList.propTypes = {
+  projectLists: PropTypes.array,
+  fetchProjectListsProps: PropTypes.func,
+  createProjectList: PropTypes.func,
+  createNewTaskProps: PropTypes.func,
+  deleteTaskProps: PropTypes.func,
+  moveTaskProps: PropTypes.func,
+  editProjectList: PropTypes.func,
+  deleteProjectList: PropTypes.func
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(BoardList);

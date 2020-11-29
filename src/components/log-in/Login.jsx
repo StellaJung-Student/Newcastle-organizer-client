@@ -9,6 +9,7 @@ import Facebook from "../html/SVG/Facebook";
 import Invisibility from "../html/SVG/Invisibility";
 import Visibility from "../html/SVG/Visibility";
 import axios from "../../api/server";
+import {localStorageExtract} from "../../utils/LocalStorage";
 
 const initialUser = {
     email: '',
@@ -17,6 +18,8 @@ const initialUser = {
 
 const LogIn = () => {
 
+    const BASE_LINK = 'http://localhost:8080'
+
     const history = useHistory();
 
     const [user, setUser] = useState(initialUser)
@@ -24,16 +27,18 @@ const LogIn = () => {
     //Show password or not
     const [passwordVisible, setPasswordVisible] = useState(false);
 
+
     const clickToTogglePasswordStatus = (event) => {
         event.preventDefault();
         setPasswordVisible(prevState => !prevState)
     }
 
     useEffect(() => {
+        localStorageExtract()
         if (localStorage.getItem('userInfo') && localStorage.getItem('isAuthenticated') && localStorage.getItem('accessToken')) {
             history.push("/boards");
         }
-    }, [history])
+    }, [])
 
     const onSignInFormSubmit = async (e) => {
         e.preventDefault();
@@ -93,11 +98,13 @@ const LogIn = () => {
                 <div className={"divide"}>
                     <p>Or</p>
                 </div>
-                <SocialButton title={"Continue with Google"} type={"button"} backgroundColor={"#ffffff"}
+                <SocialButton link={`${BASE_LINK}/auth/google`} title={"Continue with Google"} type={"button"}
+                              backgroundColor={"#ffffff"}
                               borderColor={"#eaeaea"}>
                     <Google size={"1"}/>
                 </SocialButton>
-                <SocialButton title={"Continue with Facebook"} type={"button"} backgroundColor={colors.facebookColor}
+                <SocialButton link={`${BASE_LINK}/auth/facebook`} title={"Continue with Facebook"} type={"button"}
+                              backgroundColor={colors.facebookColor}
                               color={"#ffffff"}>
                     <Facebook size={"1"} fillB={"#ffffff"} fillF={colors.facebookColor}/>
                 </SocialButton>

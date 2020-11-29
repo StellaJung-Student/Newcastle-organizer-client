@@ -1,3 +1,3 @@
-export const taskReducer = (state = {}, action) => {
+export const taskReducer = (state = {}) => {
     return state
 }

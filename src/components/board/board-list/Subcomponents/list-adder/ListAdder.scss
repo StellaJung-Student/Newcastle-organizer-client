@@ -1,3 +1,6 @@
+@import "src/styles/scss/abstract/variables";
+@import "src/styles/scss/abstract/mixins";
+
 .list__adder__wrapper {
   height: 50px;
   width: 100%;
@@ -6,10 +9,29 @@
   justify-content: left;
   align-items: center;
 
+  .list_adder_input{
+    display: flex;
+    align-items: center;
+    padding: 0 1rem;
+    svg{
+      display: none;
+    }
+  }
+
+  .list_adder_input_active{
+    border: 1px solid getColor(textColor);
+    padding: 0 1rem;
+    display: flex;
+    align-items: center;
+    svg{
+      display: block;
+    }
+  }
+
+
   .list__adder {
     width: 280px;
     height: 35px;
-    padding: 0 20px;
     background-color: transparent;
     text-align: left;
     cursor: pointer;

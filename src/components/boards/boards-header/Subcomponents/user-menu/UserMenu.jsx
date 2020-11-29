@@ -1,12 +1,15 @@
 import React from "react";
 import "./UserMenu.scss";
 import {useHistory} from "react-router-dom"
+import Cookies from "js-cookie";
+import PropTypes from 'prop-types';
 
 const UserMenu = ({ toggleUserMenu }) => {
 
   const history = useHistory();
 
   const onLogOutClick = () => {
+    Cookies.remove("accessToken");
     localStorage.removeItem('accessToken');
     localStorage.removeItem('userInfo');
     localStorage.removeItem('isAuthenticated');
@@ -31,5 +34,9 @@ const UserMenu = ({ toggleUserMenu }) => {
       </div>
   );
 };
+
+UserMenu.propTypes = {
+  toggleUserMenu: PropTypes.func
+}
 
 export default UserMenu;

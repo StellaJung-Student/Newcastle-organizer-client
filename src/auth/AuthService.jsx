@@ -1,4 +1,5 @@
 import axios from "axios";
+import Cookies from "js-cookie";
 
 const API_URL = "http://localhost:8080/api/auth/";
 
@@ -20,6 +21,7 @@ class AuthService {
 
     logout() {
         localStorage.removeItem("user");
+        Cookies.removeItem("accessToken");
     }
 
     register(username, email, password) {

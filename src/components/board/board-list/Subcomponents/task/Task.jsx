@@ -1,10 +1,11 @@
-import React, {useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import Calendar from "../../../../html/SVG/Calendar";
 import Chat from "../../../../html/SVG/Chat";
 import File from "../../../../html/SVG/File";
 import Menu from "../../../../html/SVG/Menu";
 import profile from "../../../../../assets/images/profile.png";
 import "./Task.scss";
+import PropTypes from 'prop-types';
 
 const Task = ({
                   task,
@@ -12,6 +13,20 @@ const Task = ({
                   handleDeleteTask,
               }) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false)
+
+    const taskMenuRef = useRef(null);
+
+    useEffect(() => {
+        const onBodyClick = (event) => {
+            if (taskMenuRef.current && taskMenuRef.current.contains(event.target)) {
+                return;
+            }
+
+            setIsMenuOpen(false);
+        };
+        document.body.addEventListener('click', onBodyClick)
+    }, [])
+
     return (
         <div className="task__wrapper">
             <div className="task__main__wrapper">
@@ -20,7 +35,7 @@ const Task = ({
                         {task.title}
                     </h3>
                     <div>
-                        <div>
+                        <div className={"task-menu"} ref={taskMenuRef}>
                             <div
                                 className="task__options__button__wrapper"
                                 onClick={() => {
@@ -70,5 +85,10 @@ const Task = ({
     );
 }
 
+Task.propTypes = {
+    task: PropTypes.object,
+    handleTaskClick: PropTypes.func,
+    handleDeleteTask: PropTypes.func,
+}
 
 export default Task;

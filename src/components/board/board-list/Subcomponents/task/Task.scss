@@ -1,5 +1,9 @@
-@import "../../../../../styles/scss/abstract/variables";
-@import "../../../../../styles/scss/abstract/mixins";
+@import "src/styles/scss/abstract/variables";
+@import "src/styles/scss/abstract/mixins";
+
+.task-menu{
+  position: relative;
+}
 
 .task__wrapper {
   width: 90%;

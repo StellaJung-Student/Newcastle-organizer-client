@@ -10,9 +10,11 @@ export default function index(props) {
     }
 
     return (
-        <button className="btn btn-social" type={props.type} style={style}>
-            {props.children}
-            <span>{props.title}</span>
-        </button>
+        <a href={props.link}>
+            <button className="btn btn-social" type={props.type} style={style}>
+                {props.children}
+                <span>{props.title}</span>
+            </button>
+        </a>
     )
 }

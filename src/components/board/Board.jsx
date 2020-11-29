@@ -7,7 +7,7 @@ import BoardsHeader from "../boards/boards-header/BoardsHeader";
 
 const Board = () => {
 
-    const changeProjectLists = (newProjectLists) => {
+    const changeProjectLists = () => {
         //setProjectLists(newProjectLists)
     }
 

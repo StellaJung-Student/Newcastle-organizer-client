@@ -115,7 +115,7 @@ const Signup = () => {
                     <p>By clicking Create account, I agree that I have read and accepted the Terms of Use and Privacy
                         Policy.</p>
                     <div className={"form-button"}>
-                        <Button title={"Create account"} type={"submit"}/>
+                        <Button title={"Create account"} color={"white"} type={"submit"}/>
                     </div>
                 </form>
             </div>
