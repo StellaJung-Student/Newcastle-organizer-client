@@ -8,6 +8,7 @@ const UserMenu = ({ toggleUserMenu }) => {
 
   const history = useHistory();
 
+
   const onLogOutClick = () => {
     Cookies.remove("accessToken");
     localStorage.removeItem('accessToken');
@@ -36,7 +37,7 @@ const UserMenu = ({ toggleUserMenu }) => {
 };
 
 UserMenu.propTypes = {
-  toggleUserMenu: PropTypes.func
+  toggleUserMenu: PropTypes.string,
 }
 
 export default UserMenu;

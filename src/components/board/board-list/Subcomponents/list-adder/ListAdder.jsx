@@ -5,7 +5,8 @@ import Cross from "../../../../html/SVG/Cross";
 
 const ListAdder = (
     {
-    handleListCreation
+        handleListCreation,
+        projectId
     }
 ) => {
     const [inputType, setInputType] = useState("button")
@@ -32,14 +33,15 @@ const ListAdder = (
         }
     }
 
-    const onAddTaskEnterPress = (e) => {
+    const onAddTaskEnterPress = async (e) => {
         if (e.key === "Enter") {
-            handleListCreation({
+            changeInputToInitStatus();
+            await handleListCreation({
                 // It needs to be an string in order to be accepted by react-beautiful-dnd as a draggable
                 title: inputValue,
                 titleEditable: false,
                 tasks: [],
-            })
+            }, projectId)
         }
     }
 

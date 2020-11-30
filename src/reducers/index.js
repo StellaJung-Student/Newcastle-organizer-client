@@ -1,6 +1,8 @@
 import {combineReducers} from "redux";
-import {projectListReducer} from "./fetchProjectReducer";
+import {projectReducer} from "./projectReducer";
+import {projectsReducer} from "./projectsReducer";
 
 export default combineReducers({
-    currentProject: projectListReducer,
+    currentProject: projectReducer,
+    currentProjects: projectsReducer
 })

@@ -29,7 +29,7 @@
       display: flex;
 
       .board-list__important-section__list__item {
-        background-image: url("https://source.unsplash.com/collection/1111575/1920x1080");
+        background: #172b4d;
         border-radius: 5px;
         background-size: cover;
       }
@@ -83,10 +83,9 @@
       display: flex;
 
       .board-list__section__list__item {
-        background-image: url("https://source.unsplash.com/collection/1111575/1920x1080");
         border-radius: 5px;
+        background: #172b4d center;
         background-size: cover;
-        background-position: center;
       }
     }
 

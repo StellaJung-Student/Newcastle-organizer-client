@@ -8,7 +8,7 @@ import Google from "../html/SVG/Google";
 import Facebook from "../html/SVG/Facebook";
 import Invisibility from "../html/SVG/Invisibility";
 import Visibility from "../html/SVG/Visibility";
-import axios from "../../api/server";
+import axios, {BASE_SERVER_URL} from "../../api/server";
 import {localStorageExtract} from "../../utils/LocalStorage";
 
 const initialUser = {
@@ -18,7 +18,7 @@ const initialUser = {
 
 const LogIn = () => {
 
-    const BASE_LINK = 'http://localhost:8080'
+    const BASE_LINK = BASE_SERVER_URL;
 
     const history = useHistory();
 
@@ -36,21 +36,21 @@ const LogIn = () => {
     useEffect(() => {
         localStorageExtract()
         if (localStorage.getItem('userInfo') && localStorage.getItem('isAuthenticated') && localStorage.getItem('accessToken')) {
-            history.push("/boards");
+            history.push("/projects");
         }
     }, [])
 
     const onSignInFormSubmit = async (e) => {
         e.preventDefault();
         try {
-            const res = await axios.post('/auth/login', user)
+            const res = await axios.post('/api/auth/login', user)
             if (res.status === 200) {
                 if(res.data.user && res.data.accessToken){
-                    localStorage.setItem('userInfo', res.data.user)
+                    localStorage.setItem('userInfo', JSON.stringify(res.data.user))
                     localStorage.setItem('isAuthenticated', 'true')
                     localStorage.setItem('accessToken', res.data.accessToken)
                 }
-                history.push("/boards");
+                history.push("/projects");
             }
         } catch
             (e) {

@@ -6,7 +6,8 @@ import ListAdder from "./Subcomponents/list-adder/ListAdder";
 import TaskAdder from "./Subcomponents/task-adder/TaskAdder";
 import Task from "./Subcomponents/task/Task";
 import TitleList from "./Subcomponents/title-list/TitleList";
-import {connect} from 'react-redux'
+import {connect} from 'react-redux';
+import {useParams} from 'react-router-dom';
 import {
   createNewTask,
   createProjectList,
@@ -15,7 +16,7 @@ import {
   editProjectList,
   fetchProjectLists,
   moveTask
-} from "../../../actions";
+} from "../../../actions/projectLists";
 import * as PropTypes from "prop-types";
 
 const BoardList = ({
@@ -36,9 +37,10 @@ const BoardList = ({
   const taskIndexNumber = useRef();
   const floatMenuTitle = useRef();
 
+  const {id} = useParams();
 
   useEffect(() => {
-    fetchProjectListsProps();
+    fetchProjectListsProps(id);
   }, [fetchProjectListsProps])
 
   const toggleTaskPopup = () => {
@@ -74,12 +76,11 @@ const BoardList = ({
   // eslint-disable-next-line no-unused-vars
   const handleTaskClick = (task, listIndex, taskIndex) => {
     toggleTaskPopup()
-    //createNewTaskProps(projectLists[listIndex].id, task)
   };
 
 
-  const handleListCreation = (newList) => {
-    createProjectList(newList);
+  const handleListCreation = (newList, projectId) => {
+    createProjectList(newList, projectId);
   };
 
   const handleTaskDragEnd = (result) => {
@@ -184,7 +185,7 @@ const BoardList = ({
             handleTaskDescriptionChange={(e) => handleTaskDescriptionChange(e)}
             //currentTask={currentTask}
         />
-        <ListAdder handleListCreation={(newList) => handleListCreation(newList)}/>
+        <ListAdder handleListCreation={(newList, projectId) => handleListCreation(newList, projectId)} projectId={id}/>
       </div>
   );
 };
@@ -196,8 +197,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchProjectListsProps: () => dispatch(fetchProjectLists()),
-    createProjectList: (newProjectList) => dispatch(createProjectList(newProjectList)),
+    fetchProjectListsProps: (projectId) => dispatch(fetchProjectLists(projectId)),
+    createProjectList: (newProjectList, projectId) => dispatch(createProjectList(newProjectList, projectId)),
     createNewTaskProps: (projectListId, newTask) => dispatch(createNewTask(projectListId, newTask)),
     deleteTaskProps: (projectListId, taskId) => dispatch(deleteTask(projectListId, taskId)),
     moveTaskProps: (task, newProjectList, listsObjects) => dispatch(moveTask(task, newProjectList, listsObjects)),

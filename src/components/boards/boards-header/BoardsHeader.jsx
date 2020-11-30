@@ -1,16 +1,30 @@
-import React, {useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import "./BoardsHeader.scss";
 import UserMenu from "./Subcomponents/user-menu/UserMenu";
 import {Link} from "react-router-dom";
 
 const BoardsHeader = () => {
-  const [userMenu, changeUserMenu] = useState(false);
+  const [userMenu, setUserMenu] = useState(false);
+
+  const userMenuRef = useRef(null);
+
+  useEffect(() => {
+    const onDocumentBodyClick = (e) => {
+      if (userMenuRef.current && userMenuRef.current.contains(e.target)) {
+        return;
+      }
+      closeUserMenu()
+    }
+    document.body.addEventListener('click', onDocumentBodyClick)
+  }, [])
 
   const changeUserMenuState = () => {
-    if (userMenu) {
-      changeUserMenu(false);
-    } else {
-      changeUserMenu(true);
+    setUserMenu(prevState => !prevState)
+  };
+
+  const closeUserMenu = () => {
+    if (userMenu === true) {
+      setUserMenu(false);
     }
   };
 
@@ -26,9 +40,9 @@ const BoardsHeader = () => {
     <header className="boards-header">
       <nav className="boards-header__nav">
         <Link to={"/"}><h2 className="boards-header__nav__title">Newcastle Organizer</h2></Link>
-        <button
-            className="boards-header__nav__user-button"
-            onClick={() => changeUserMenuState()}
+        <button ref={userMenuRef}
+                className="boards-header__nav__user-button"
+                onClick={() => changeUserMenuState()}
         />
         <UserMenu toggleUserMenu={toggleUserMenu()}/>
       </nav>

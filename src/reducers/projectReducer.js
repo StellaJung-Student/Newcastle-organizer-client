@@ -9,10 +9,11 @@ import {
 } from "../actions/types";
 
 const initialBoard = {
+    project: {},
     projectLists :  []
 }
 
-export const projectListReducer = (state = initialBoard, action) => {
+export const projectReducer = (state = initialBoard, action) => {
     const newArr = [...state.projectLists]
     switch (action.type) {
         case CREATE_PROJECT_LIST:

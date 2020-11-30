@@ -1,14 +1,14 @@
 import React from "react"
 
-const Close = () => {
+const Close = ({size}) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"
       svgjs="http://svgjs.com/svgjs"
       version="1.1"
-      width="16"
-      height="16"
+      width={`${size}rem`}
+      height={`${size}rem`}
       x="0"
       y="0"
       viewBox="0 0 47.971 47.971"

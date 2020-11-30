@@ -20,7 +20,13 @@ module.exports = {
   },
   plugins: ["react", "import", "react-hooks"],
   ignorePatterns: ["node_modules/"],
-  rules: {},
+  rules: {
+    "react/no-unescaped-entities": "off",
+    "react/display-name": "off",
+    "react/prop-types": "off",
+    "no-case-declarations": "off",
+    "no-unused-vars": "off"
+  },
   settings: {
     react: {
       version: "latest", // "detect" automatically picks the version you have installed.

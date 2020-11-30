@@ -31,7 +31,7 @@ const Signup = () => {
     const onSignUpFormSubmit = async (e) => {
         e.preventDefault();
         try {
-            const res = await axios.post('/auth/signup', user)
+            const res = await axios.post('/api/auth/signup', user)
             if (res.status === 201) {
                 setUser(initialUser)
                 history.push('/')
