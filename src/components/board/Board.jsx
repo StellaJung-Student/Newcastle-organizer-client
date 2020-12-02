@@ -6,19 +6,12 @@ import BoardsHeader from "../boards/boards-header/BoardsHeader";
 
 
 const Board = () => {
-
-    const changeProjectLists = () => {
-        //setProjectLists(newProjectLists)
-    }
-
     return (
         <div className="board__wrapper">
             <div>
                 <BoardsHeader/>
                 <Header/>
-                <BoardList
-                    changeProjectLists={changeProjectLists}
-                />
+                <BoardList />
             </div>
         </div>
     );

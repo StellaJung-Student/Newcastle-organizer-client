@@ -50,7 +50,7 @@ const FloatingTaskMenu = ({
                                 <div
                                     onClick={toggleTaskPopup}
                                     className="floating-menu__section__close-button__wrapper">
-                                    <Close/>
+                                    <Close size={"1"}/>
                                 </div>
                             </div>
                         </section>

@@ -58,6 +58,7 @@ const LogIn = () => {
         }
     }
 
+
     return (
         <section className="section__login">
             <div className="section__login__content__wrapper">
@@ -75,18 +76,24 @@ const LogIn = () => {
                     <div className={"form-group"}>
                         <label className="section__signup__form__label" htmlFor="password">Password</label>
                         <div className={"form-input-icon"}>
-                            <input required type={passwordVisible ? "text" : "password"} name="password" id="password"
+                            <input required type={passwordVisible ? "text" : "password"}
+                                   name="password"
+                                   id="password"
                                    value={user.password} onChange={(e) => {
                                 setUser({...user, password: e.target.value})
                             }}/>
-                            <button onClick={clickToTogglePasswordStatus}
-                                    style={{display: `${passwordVisible ? "none" : "block"}`}}
-                                    className={"bg-color-transparent"}>
+                            <button
+                                type={"button"}
+                                onClick={clickToTogglePasswordStatus}
+                                style={{display: `${passwordVisible ? "none" : "block"}`}}
+                                className={"bg-color-transparent"}>
                                 <Invisibility size={"1"}/>
                             </button>
-                            <button onClick={clickToTogglePasswordStatus}
-                                    style={{display: `${passwordVisible ? "block" : "none"}`}}
-                                    className={"bg-color-transparent"}>
+                            <button
+                                type={"button"}
+                                onClick={clickToTogglePasswordStatus}
+                                style={{display: `${passwordVisible ? "block" : "none"}`}}
+                                className={"bg-color-transparent"}>
                                 <Visibility size={"1"}/>
                             </button>
                         </div>

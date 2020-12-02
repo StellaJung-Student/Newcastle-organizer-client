@@ -23,6 +23,11 @@ const ListAdder = (
             changeInputToInitStatus()
         };
         document.body.addEventListener("click", onBodyClick)
+
+        return function cleanup(){
+            changeInputToInitStatus()
+            document.body.removeEventListener("click", onBodyClick);
+        }
     }, [])
 
     const onAddListClick = () => {

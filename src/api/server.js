@@ -1,11 +1,10 @@
 import axios from 'axios'
 
-export const BASE_SERVER_URL = 'https://fast-island-78566.herokuapp.com';
+//'http://localhost:8080'
+export const BASE_SERVER_URL = 'http://localhost:8080';
 
 export default axios.create({
-    baseURL:
-    //'http://localhost:8080',
-    BASE_SERVER_URL,
+    baseURL: BASE_SERVER_URL,
     timeout: 100000,
     //credentials: 'include',
     withCredentials: true,

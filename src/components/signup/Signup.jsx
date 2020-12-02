@@ -86,9 +86,11 @@ const Signup = () => {
                                    value={user.password} onChange={(e) => {
                                 setUser({...user, password: e.target.value})
                             }}/>
-                            <button onClick={clickToTogglePasswordStatus}
-                                    style={{display: `${passwordVisible ? "none" : "block"}`}}
-                                    className={"bg-color-transparent"}>
+                            <button
+                                type={"button"}
+                                onClick={clickToTogglePasswordStatus}
+                                style={{display: `${passwordVisible ? "none" : "block"}`}}
+                                className={"bg-color-transparent"}>
                                 <Invisibility size={"1"}/>
                             </button>
                             <button onClick={clickToTogglePasswordStatus}
@@ -110,6 +112,7 @@ const Signup = () => {
                             <option value="Argentina"/>
                             <option value="India"/>
                             <option value="Nepal"/>
+                            <option value="Other"/>
                         </datalist>
                     </div>
                     <p>By clicking Create account, I agree that I have read and accepted the Terms of Use and Privacy

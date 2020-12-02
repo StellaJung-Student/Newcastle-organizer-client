@@ -22,7 +22,7 @@ const TitleList = ({
             setIsMenuOpen(false);
         };
         document.body.addEventListener("click", onBodyClick)
-    }, [])
+    }, [isMenuOpen])
 
     const editTitleWithEnterPressed = (e) => {
         if (e.key === "Enter") {

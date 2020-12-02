@@ -176,6 +176,7 @@ const BoardList = ({
               </ul>
           ))}
         </DragDropContext>
+
         <FloatingTaskMenu
             isTaskPopupOpen={isTaskPopupOpen}
             toggleTaskPopup={toggleTaskPopup}
@@ -185,6 +186,7 @@ const BoardList = ({
             handleTaskDescriptionChange={(e) => handleTaskDescriptionChange(e)}
             //currentTask={currentTask}
         />
+
         <ListAdder handleListCreation={(newList, projectId) => handleListCreation(newList, projectId)} projectId={id}/>
       </div>
   );
