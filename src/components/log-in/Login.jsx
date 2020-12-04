@@ -24,6 +24,9 @@ const LogIn = () => {
 
     const [user, setUser] = useState(initialUser)
 
+    // show loader or not
+    const [loader, setLoader] = useState(false);
+
     //Show password or not
     const [passwordVisible, setPasswordVisible] = useState(false);
 
@@ -42,6 +45,7 @@ const LogIn = () => {
 
     const onSignInFormSubmit = async (e) => {
         e.preventDefault();
+        setLoader(true);
         try {
             const res = await axios.post('/api/auth/login', user)
             if (res.status === 200) {
@@ -58,6 +62,18 @@ const LogIn = () => {
         }
     }
 
+
+    const displayBtn = () => {
+        if(loader){
+            return(
+                <div type={"disabled"} className="loader"></div>
+            ) 
+        }
+        return (
+            <Button type={"submit"} title={"Continue"}/>
+        )
+
+    }
 
     return (
         <section className="section__login">
@@ -98,8 +114,9 @@ const LogIn = () => {
                             </button>
                         </div>
                     </div>
+
                     <div className={"form-button"}>
-                        <Button type={"submit"} title={"Continue"}/>
+                            {displayBtn()}
                     </div>
                 </form>
                 <div className={"divide"}>

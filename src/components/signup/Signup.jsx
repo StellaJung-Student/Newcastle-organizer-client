@@ -23,6 +23,9 @@ const Signup = () => {
     //Show password or not
     const [passwordVisible, setPasswordVisible] = useState(false);
 
+    // show loader or not
+    const [loader, setLoader] = useState(false);
+
     const clickToTogglePasswordStatus = (event) => {
         event.preventDefault();
         setPasswordVisible(prevState => !prevState)
@@ -31,6 +34,7 @@ const Signup = () => {
     const onSignUpFormSubmit = async (e) => {
         e.preventDefault();
         try {
+            setLoader(true);
             const res = await axios.post('/api/auth/signup', user)
             if (res.status === 201) {
                 setUser(initialUser)
@@ -40,6 +44,18 @@ const Signup = () => {
             (e) {
             console.log(e)
         }
+    }
+
+       const displayBtn = () => {
+        if(loader){
+            return(
+                <div type={"disabled"} className="loader"></div>
+            ) 
+        }
+        return (
+            <Button type={"submit"} title={"Continue"}/>
+        )
+
     }
 
     return (
@@ -118,7 +134,7 @@ const Signup = () => {
                     <p>By clicking Create account, I agree that I have read and accepted the Terms of Use and Privacy
                         Policy.</p>
                     <div className={"form-button"}>
-                        <Button title={"Create account"} color={"white"} type={"submit"}/>
+                        {displayBtn()}
                     </div>
                 </form>
             </div>

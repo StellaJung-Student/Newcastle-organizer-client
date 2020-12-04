@@ -25,7 +25,7 @@
 
         a {
           color: getColor(secondaryColor);
-          &:hover{
+          &:hover {
             border-bottom: 1px solid getColor(secondaryColor);
           }
         }
@@ -60,7 +60,6 @@
         width: 100%;
       }
     }
-
   }
 }
 
@@ -72,8 +71,37 @@
   }
 }
 
-@media only screen and (min-width: 1280px) {
-  .section__signup {
+.loader {
+  border: 6px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 6px solid #3498db;
+  width: 40px;
+  height: 40px;
+  -webkit-animation: spin 2s linear infinite; /* Safari */
+  animation: spin 2s linear infinite;
+}
 
+/* Safari */
+@-webkit-keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
   }
 }
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+// @media only screen and (min-width: 1280px) {
+//   .section__signup {
+
+//   }
+// }
