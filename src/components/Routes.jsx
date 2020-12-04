@@ -15,7 +15,7 @@ function Routes() {
                 <Route path="/" exact component={LoginPage}/>
                 <Route path="/login" exact component={LoginPage}/>
                 <Route path="/signup" exact component={SignupPage}/>
-                <Route path="/signup/verify/:id" exact component={VerifiedPage}/>
+                <Route path="/signup/verify" exact component={VerifiedPage}/>
                 <PrivateRoute path="/projects/:id" exact component={BoardPage}/>
                 <PrivateRoute path="/projects" exact component={BoardsPage}/>
             </Switch>

@@ -1,5 +1,6 @@
 import React from 'react'
 import './Verified.scss'
+import {Link} from "react-router-dom";
 export default function Verified() {
     return (
         <div className="verification-wrapper">
@@ -7,7 +8,7 @@ export default function Verified() {
                 <h1>Account Verified</h1>
                 <h3>Your account has been successfully verified</h3>
                 <p>You can start using Newcastle organiser.</p>
-                <a href="/login">Login</a>
+                <Link to="/login">Login</Link>
             </div>
         </div>
     )
