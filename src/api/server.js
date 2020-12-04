@@ -1,8 +1,8 @@
 import axios from "axios";
 
 
-//export const BASE_SERVER_URL = "http://localhost:8080";
-export const BASE_SERVER_URL = 'https://fast-island-78566.herokuapp.com';
+export const BASE_SERVER_URL = "http://localhost:8080";
+//export const BASE_SERVER_URL = 'https://fast-island-78566.herokuapp.com';
 
 
 export default axios.create({
