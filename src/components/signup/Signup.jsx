@@ -4,6 +4,7 @@ import Button from "../html/button/primary"
 import {Link, useHistory} from "react-router-dom"
 import Invisibility from "../html/SVG/Invisibility";
 import Visibility from "../html/SVG/Visibility";
+import Modal from "./../../components/modal/Modal"
 import axios from '../../api/server'
 
 const initialUser = {
@@ -20,6 +21,9 @@ const Signup = () => {
     const [user, setUser] = useState(initialUser)
     const history = useHistory();
 
+    // Show modal or not
+    const [modal, setModel] = useState(false);
+
     //Show password or not
     const [passwordVisible, setPasswordVisible] = useState(false);
 
@@ -33,6 +37,7 @@ const Signup = () => {
 
     const onSignUpFormSubmit = async (e) => {
         e.preventDefault();
+
         try {
             setLoader(true);
             const res = await axios.post('/api/auth/signup', user)
@@ -40,6 +45,7 @@ const Signup = () => {
                 setUser(initialUser)
                 //history.push('/')
                 setLoader(false);
+                setModel(true);
             }
         } catch
             (e) {
@@ -64,8 +70,16 @@ const Signup = () => {
 
     }
 
+    const showModal = () => {
+        setTimeout(()=>{setModel(false)},4000)
+        if(modal){
+            return (<Modal />)
+        }
+    }
+
     return (
         <section className="section__signup">
+        
             <div className="section__signup__content__wrapper">
                 <div className="section__signup__title__wrapper">
                     <h1 className="section__signup__title">Create an account</h1>
@@ -85,6 +99,7 @@ const Signup = () => {
                                    setUser({...user, username: e.target.value})
                                }}/>
                     </div>
+
                     <div className={"form-row"}>
                         <div className={"form-group"}>
                             <label className="section__signup__form__label" htmlFor="firstname">Firstname</label>
@@ -144,6 +159,8 @@ const Signup = () => {
                     </div>
                 </form>
             </div>
+            
+           {showModal()}
         </section>
     )
 }
