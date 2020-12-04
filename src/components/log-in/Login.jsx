@@ -58,15 +58,19 @@ const LogIn = () => {
             }
         } catch
             (e) {
+            setLoader(false);
             console.log(e)
         }
     }
 
-
+    /**
+     * Display loader or button
+     * @returns {JSX.Element}
+     */
     const displayBtn = () => {
         if(loader){
             return(
-                <div type={"disabled"} className="loader"></div>
+                <div className="loader"/>
             ) 
         }
         return (

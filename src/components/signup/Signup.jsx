@@ -38,19 +38,25 @@ const Signup = () => {
             const res = await axios.post('/api/auth/signup', user)
             if (res.status === 201) {
                 setUser(initialUser)
-                history.push('/')
+                //history.push('/')
+                setLoader(false);
             }
         } catch
             (e) {
+            setLoader(false);
             console.log(e)
         }
     }
 
-       const displayBtn = () => {
-        if(loader){
-            return(
-                <div type={"disabled"} className="loader"></div>
-            ) 
+    /**
+     * Display loader or button
+     * @returns {JSX.Element}
+     */
+    const displayBtn = () => {
+        if (loader) {
+            return (
+                <div className="loader"/>
+            )
         }
         return (
             <Button type={"submit"} title={"Continue"}/>
